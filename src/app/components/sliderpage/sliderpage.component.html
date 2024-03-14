@@ -1,0 +1,6 @@
+Slider value = {{ v1 }}
+
+<div class="d-flex gap-2 flex-column">
+  <app-slider [sliderValue]="v1" (sliderValueChange)="v1 = $event"></app-slider>
+  <app-progress-bar [progressValue]="v1"></app-progress-bar>
+</div>
