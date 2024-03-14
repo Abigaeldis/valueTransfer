@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { SliderPageComponent } from './components/sliderpage/sliderpage.component';
+import { SliderPageComponent } from './pages/sliderpage/sliderpage/sliderpage.component';
+import { HomeComponent } from './pages/sliderpage/home/home.component';
 
 export const routes: Routes = [
-  //   { path: '', component: HomeComponent, pathMatch: 'full' }, // Home route
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'slider', component: SliderPageComponent },
 ];
