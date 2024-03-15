@@ -1,0 +1,26 @@
+<button (click)="showOnlyIncomplete = !showOnlyIncomplete">
+  Show {{ showOnlyIncomplete ? "All Tasks" : "Incomplete Tasks" }}
+</button>
+
+<ul>
+  <li *ngFor="let task of tasks">
+    <div *ngIf="!showOnlyIncomplete || (showOnlyIncomplete && !task.completed)">
+      <input type="checkbox" [(ngModel)]="task.completed" /> {{ task.title }}
+    </div>
+  </li>
+</ul>
+
+<input
+  type="number"
+  [(ngModel)]="displayCount"
+  (ngModelChange)="generateColors()"
+  placeholder="Enter a number"
+/>
+
+<div class="container d-flex flex-wrap">
+  <div
+    *ngFor="let color of colors"
+    [style.background]="color"
+    style="width: 100px; height: 100px; margin: 10px"
+  ></div>
+</div>
