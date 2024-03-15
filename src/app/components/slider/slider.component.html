@@ -1,8 +1,13 @@
-<mat-slider [discrete]="showLabel" [min]="min" [max]="max">
+<mat-slider
+  [discrete]="showLabel"
+  [min]="minSliderValue"
+  [max]="maxSliderValue"
+  (click)="sliderClicked()"
+>
   <!-- $event c'est le nom de la variable émise par l'output "ngModelChange" de l'input  -->
   <input
     matSliderThumb
     [(ngModel)]="sliderValue"
-    (ngModelChange)="sliderValueChange.emit($event)"
+    (ngModelChange)="sliderValueHasChange()"
   />
 </mat-slider>

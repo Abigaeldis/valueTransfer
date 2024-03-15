@@ -11,4 +11,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 export class ProgressBarComponent {
   @Input()
   public progressValue: number = 0;
+
+  @Input()
+  public progressType: string = 'info';
 }

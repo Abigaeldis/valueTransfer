@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
@@ -18,12 +19,25 @@ export class SliderComponent {
   @Output()
   public sliderValueChange = new EventEmitter<number>();
 
-  @Input()
-  public min: number = 0;
+  @Output()
+  public sliderHasBeenClicked = new EventEmitter<ThemePalette>();
 
   @Input()
-  public max: number = 100;
+  public minSliderValue: number = 0;
+
+  @Input()
+  public maxSliderValue: number = 100;
 
   @Input()
   public showLabel: boolean = true;
+
+  public sliderValueHasChange(): void {
+    console.log('slider value has changed', this.sliderValue);
+    this.sliderValueChange.emit(this.sliderValue);
+  }
+
+  public sliderClicked(): void {
+    console.log('slider clicked');
+    this.sliderHasBeenClicked.emit();
+  }
 }

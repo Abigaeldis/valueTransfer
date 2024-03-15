@@ -1,6 +1,25 @@
 Slider value = {{ v1 }}
+<br />
+{{ label }}
 
 <div class="d-flex gap-2 flex-column">
-  <app-slider [sliderValue]="v1" (sliderValueChange)="v1 = $event"></app-slider>
-  <app-progress-bar [progressValue]="v1"></app-progress-bar>
+  <app-slider
+    (sliderHasBeenClicked)="sliderClicked()"
+    [sliderValue]="v1"
+    (sliderValueChange)="v1 = $event"
+  ></app-slider>
+  <app-progress-bar
+    [progressType]="label"
+    [progressValue]="v1"
+  ></app-progress-bar>
+
+  <app-slider
+    (sliderHasBeenClicked)="sliderClicked()"
+    [sliderValue]="v2"
+    (sliderValueChange)="v2 = $event"
+  ></app-slider>
+  <app-progress-bar
+    [progressType]="label2"
+    [progressValue]="v2"
+  ></app-progress-bar>
 </div>
