@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { SliderComponent } from '../../../components/slider/slider.component';
-import { ProgressBarComponent } from '../../../components/progress-bar/progress-bar.component';
+import { SliderComponent } from '../../components/slider/slider.component';
+import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-sliderpage',
