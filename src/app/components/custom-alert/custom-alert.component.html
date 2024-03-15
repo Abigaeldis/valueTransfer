@@ -1,0 +1,8 @@
+<div *ngIf="showInput">
+  <input type="text" [(ngModel)]="userInput" placeholder="Enter your message" />
+  <button (click)="showAlert()">Show Alert</button>
+</div>
+
+<ngb-alert *ngIf="alertMessage" [type]="alertType" (closed)="resetAlert()">
+  Alert: {{ alertMessage }}
+</ngb-alert>

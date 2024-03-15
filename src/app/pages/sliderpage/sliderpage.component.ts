@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SliderComponent } from '../../components/slider/slider.component';
 import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 
