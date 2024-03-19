@@ -3,7 +3,7 @@
     class="pokemon"
     *ngFor="let pokemon of pokemons"
     [ngStyle]="{ 'background-color': getColorByType(pokemon.type?.[0]) }"
-    (click)="onSelectPokemon(pokemon)"
+    [appModale]="pokemon"
   >
     <div class="img-container">
       <img [src]="pokemon.artworkUrl" alt="{{ pokemon.name }}" />
@@ -16,12 +16,3 @@
     </div>
   </div>
 </div>
-
-<ng-container *ngIf="isModalVisible">
-  <div class="modal-backdrop" (click)="onCloseModal()">
-    <div class="modal-container d-flex" (click)="$event.stopPropagation()">
-      <app-modale [pokemon]="selectedPokemon"></app-modale>
-      <button class="close-modal" (click)="onCloseModal()">Close</button>
-    </div>
-  </div>
-</ng-container>

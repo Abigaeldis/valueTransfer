@@ -45,6 +45,13 @@
         >
           <a routerLink="/pokemons" class="nav-link">Pokemon</a>
         </li>
+        <li
+          class="nav-item"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a routerLink="/directives" class="nav-link">Directives</a>
+        </li>
       </ul>
     </div>
   </div>

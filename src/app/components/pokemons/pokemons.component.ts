@@ -3,19 +3,18 @@ import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../entities/pokemon';
 import { CommonModule } from '@angular/common';
 import { ModaleComponent } from '../modale/modale.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDirective } from '../../directives/modal.directive';
 
 @Component({
   selector: 'app-pokemons',
   templateUrl: './pokemons.component.html',
   styleUrls: ['./pokemons.component.scss'],
   standalone: true,
-  imports: [CommonModule, ModaleComponent],
+  imports: [CommonModule, ModaleComponent, ModalDirective],
 })
 export class PokemonsComponent implements OnInit {
   pokemons: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
-  isModalVisible: boolean = false;
 
   colors: { [key: string]: string } = {
     fire: '#FDDFDF',
@@ -34,10 +33,7 @@ export class PokemonsComponent implements OnInit {
     normal: '#F5F5F5',
   };
 
-  constructor(
-    private PokemonService: PokemonService,
-    private ngbModal: NgbModal
-  ) {}
+  constructor(private PokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.PokemonService.getPokemons().subscribe({
@@ -50,16 +46,5 @@ export class PokemonsComponent implements OnInit {
 
   getColorByType(type: string | undefined): string {
     return type ? this.colors[type] || '#F5F5F5' : '#F5F5F5';
-  }
-
-  onSelectPokemon(pokemon: Pokemon): void {
-    this.selectedPokemon = pokemon;
-
-    const modalRef = this.ngbModal.open(ModaleComponent, { centered: true });
-    modalRef.componentInstance.pokemon = pokemon;
-  }
-
-  onCloseModal(): void {
-    this.isModalVisible = false;
   }
 }

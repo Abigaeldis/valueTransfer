@@ -39,13 +39,6 @@ export class PokemonService {
                       details.sprites.other['official-artwork'].front_default,
                   };
 
-                  // Log the raw API response details
-                  console.log('API Response Details:', details);
-
-                  // Log the constructed Pokemon object
-                  console.log('Mapped Pokemon Object:', pokemon);
-
-                  // Return the mapped Pokemon object
                   return pokemon;
                 })
               )

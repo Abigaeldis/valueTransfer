@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Pokemon } from '../../entities/pokemon';
 import { CommonModule } from '@angular/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modale',
@@ -11,4 +12,10 @@ import { CommonModule } from '@angular/common';
 })
 export class ModaleComponent {
   @Input() pokemon: Pokemon | null = null;
+
+  constructor(private activeModal: NgbActiveModal) {}
+
+  onClose() {
+    this.activeModal.close();
+  }
 }
