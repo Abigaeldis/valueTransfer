@@ -3,11 +3,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { SliderComponent } from './components/slider/slider.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+import { PokemonService } from './services/pokemon.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +14,13 @@ import { BrowserModule } from '@angular/platform-browser';
     NavbarComponent,
     SliderComponent,
     ProgressBarComponent,
+    HttpClientModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'valueTransfer';
+
+  constructor(private PokemonService: PokemonService) {}
 }

@@ -1,0 +1,13 @@
+<div *ngIf="pokemon" class="pokemon-container-modal">
+  <div class="modal-header">
+    <h2>{{ pokemon.name }}</h2>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <img [src]="pokemon.artworkUrl" alt="{{ pokemon.name }}" />
+  <p>Type: {{ pokemon.type?.[0] }}</p>
+</div>
