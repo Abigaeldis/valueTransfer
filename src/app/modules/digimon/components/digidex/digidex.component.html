@@ -1,0 +1,38 @@
+<ng-container *ngIf="digimons.length > 0; else noDigimons">
+  <div class="d-flex row flex-wrap gap-5">
+    <div class="digimon-card card" *ngFor="let digimon of digimons">
+      <label>{{ digimon.name }} - {{ digimon.id }}</label>
+      <img
+        class="object-fit-contain"
+        [src]="digimon.image"
+        alt="{{ digimon.name }}"
+      />
+    </div>
+  </div>
+
+  <ng-container *ngIf="pageable">
+    <span
+      >Page {{ pageable.currentPage + 1 }} of {{ pageable.totalPages }}</span
+    >
+    <div class="pagination-controls">
+      <button
+        class="btn btn-primary"
+        (click)="goToPreviousPage()"
+        [disabled]="pageable.currentPage <= 0"
+      >
+        Previous
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="goToNextPage()"
+        [disabled]="pageable.currentPage >= pageable.totalPages - 1"
+      >
+        Next
+      </button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #noDigimons>
+  <p>No digimons found.</p>
+</ng-template>
