@@ -6,6 +6,9 @@ import { StructuralDirectivePageComponent } from './pages/structural-directive-p
 
 import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { DirectivesShowdownComponent } from './components/directives-showdown/directives-showdown.component';
+import { NgTemplateDemoComponent } from './components/ng-template-demo/ng-template-demo.component';
+import { ReactiveFormsComponent } from './components/reactive-forms/reactive-forms.component';
+import { PipeDemoComponent } from './components/pipe-demo/pipe-demo.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -14,4 +17,7 @@ export const routes: Routes = [
   { path: 'structuralDirective', component: StructuralDirectivePageComponent },
   { path: 'pokemons', component: PokemonsComponent },
   { path: 'directives', component: DirectivesShowdownComponent },
+  { path: 'ngTemplate', component: NgTemplateDemoComponent },
+  { path: 'reactiveForms', component: ReactiveFormsComponent },
+  { path: 'pipe', component: PipeDemoComponent },
 ];
