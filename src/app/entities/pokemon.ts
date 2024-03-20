@@ -10,7 +10,7 @@ export class Pokemon {
 }
 
 export interface Evolution {
-  name: string;
+  id?: number;
   pokedexId: number;
   apiEvolutions: Evolution[];
   apiPreEvolution: string;

@@ -3,18 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Pokemon } from '../entities/pokemon';
-import { StorageService } from './storage.service';
+import { Evolution } from '../entities/pokemon';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
+  private apiUrlEvo = 'https://pokebuildapi.fr/api/v1/pokemon';
 
-  constructor(
-    private http: HttpClient,
-    private storageService: StorageService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   public getPokemons(): Observable<Pokemon[]> {
     return this.http
@@ -48,20 +46,12 @@ export class PokemonService {
       );
   }
 
-  getPokemonDetails(url: string): Observable<Pokemon> {
-    return this.http.get<any>(url).pipe(
-      switchMap((pokemon) =>
-        this.http.get<any>(pokemon.species.url).pipe(
-          map((species) => ({
-            ...pokemon,
-            evolutionChainUrl: species.evolution_chain.url,
-          }))
-        )
-      )
-    );
+  getEvolutionById(id: number): Observable<Evolution> {
+    return this.http.get<Evolution>(`${this.apiUrlEvo}/${id}`);
   }
 
-  getEvolutionChain(url: string): Observable<any> {
+  getPokemonDetailsFromPokeAPI(pokedexId: number): Observable<any> {
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokedexId}`;
     return this.http.get<any>(url);
   }
 }

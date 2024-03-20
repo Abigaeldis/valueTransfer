@@ -47,4 +47,35 @@ export class PokemonsComponent implements OnInit {
   getColorByType(type: string | undefined): string {
     return type ? this.colors[type] || '#F5F5F5' : '#F5F5F5';
   }
+
+  onPokemonClick(pokemonId?: number): void {
+    if (pokemonId === undefined) {
+      console.warn('Pokemon ID is undefined');
+      return;
+    }
+
+    this.PokemonService.getEvolutionById(pokemonId).subscribe({
+      next: (pokemon) => {
+        console.log(pokemon);
+
+        if (pokemon.apiEvolutions && pokemon.apiEvolutions.length > 0) {
+          const evolutionPokedexId = pokemon.apiEvolutions[0].pokedexId;
+
+          this.PokemonService.getPokemonDetailsFromPokeAPI(
+            evolutionPokedexId
+          ).subscribe({
+            next: (evolutionDetails) => {
+              console.log(evolutionDetails);
+            },
+            error: (error) =>
+              console.error(
+                'Failed to fetch evolution details from PokeAPI',
+                error
+              ),
+          });
+        }
+      },
+      error: (error) => console.error('Failed to fetch evolution data', error),
+    });
+  }
 }

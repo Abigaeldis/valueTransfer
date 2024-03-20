@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon } from '../../entities/pokemon';
+import { Evolution, Pokemon } from '../../entities/pokemon';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,6 +12,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModaleComponent {
   @Input() pokemon: Pokemon | null = null;
+  @Input() evolution: Evolution | null = null;
 
   evolutionChain: any = null;
 
@@ -33,6 +34,10 @@ export class ModaleComponent {
   };
 
   constructor(private activeModal: NgbActiveModal) {}
+
+  ngOnInit(): void {
+    // console.log('Modal opened for:', this.pokemon);
+  }
 
   onClose() {
     this.activeModal.close();
