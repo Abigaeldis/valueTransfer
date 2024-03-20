@@ -10,5 +10,14 @@
     ></button>
   </div>
   <img [src]="pokemon.artworkUrl" alt="{{ pokemon.name }}" />
-  <p>Type: {{ pokemon.type?.[0] }}</p>
+  <div class="info container pb-5 d-flex flex-column">
+    <p>Type: {{ pokemon.type?.[0] }}</p>
+    <button
+      class="btn"
+      (click)="playCry(pokemon!.cries!.latest)"
+      [ngStyle]="{ 'background-color': getColorByType(pokemon.type?.[0]) }"
+    >
+      Play Cry
+    </button>
+  </div>
 </div>

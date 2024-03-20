@@ -37,6 +37,7 @@ export class PokemonService {
                     ),
                     artworkUrl:
                       details.sprites.other['official-artwork'].front_default,
+                    cries: details.cries,
                   };
 
                   return pokemon;
