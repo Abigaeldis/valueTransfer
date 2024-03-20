@@ -8,3 +8,10 @@ export class Pokemon {
     legacy: string;
   };
 }
+
+export interface Evolution {
+  name: string;
+  pokedexId: number;
+  apiEvolutions: Evolution[];
+  apiPreEvolution: string;
+}

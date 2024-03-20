@@ -13,6 +13,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModaleComponent {
   @Input() pokemon: Pokemon | null = null;
 
+  evolutionChain: any = null;
+
   colors: { [key: string]: string } = {
     fire: '#FDDFDF',
     grass: '#DEFDE0',

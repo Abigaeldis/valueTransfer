@@ -28,7 +28,6 @@ export class PokemonService {
             pokemonDetailsUrls.map((url) =>
               this.http.get(url).pipe(
                 map((details: any) => {
-                  // Map the details to a Pokemon object
                   const pokemon: Pokemon = {
                     id: details.id,
                     name: details.name,
@@ -49,5 +48,20 @@ export class PokemonService {
       );
   }
 
-  private savePokemon(): void {}
+  getPokemonDetails(url: string): Observable<Pokemon> {
+    return this.http.get<any>(url).pipe(
+      switchMap((pokemon) =>
+        this.http.get<any>(pokemon.species.url).pipe(
+          map((species) => ({
+            ...pokemon,
+            evolutionChainUrl: species.evolution_chain.url,
+          }))
+        )
+      )
+    );
+  }
+
+  getEvolutionChain(url: string): Observable<any> {
+    return this.http.get<any>(url);
+  }
 }
