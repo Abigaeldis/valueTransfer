@@ -1,5 +1,8 @@
-<div *ngIf="pokemon" class="pokemon-container-modal">
-  <div class="modal-header">
+<div
+  *ngIf="pokemon"
+  class="pokemon-container-modal d-flex flex-column align-items-center justify-content-between"
+>
+  <div class="modal-header w-100">
     <h2>{{ pokemon.name }}</h2>
     <button
       type="button"
@@ -9,7 +12,7 @@
       (click)="onClose()"
     ></button>
   </div>
-  <img [src]="pokemon.artworkUrl" alt="{{ pokemon.name }}" />
+  <img class="modalImage" [src]="pokemon.artworkUrl" alt="{{ pokemon.name }}" />
   <div class="info container pb-5 d-flex flex-column">
     <p>Type: {{ pokemon.type?.[0] }}</p>
     <button
@@ -21,7 +24,44 @@
     </button>
   </div>
 
-  <div *ngIf="evolution" class="evolution-details">
-    <h3>Evolution: {{ evolution.id }}</h3>
+  <div
+    *ngIf="evolutionDetails && evolutionDetails.apiEvolutions.length > 0"
+    class="evolution-details"
+  >
+    <h3>Evolution:</h3>
+    <ul class="list-group">
+      <li
+        class="list-group-items d-flex flex-column align-items-center"
+        *ngFor="let evolution of evolutionDetails.apiEvolutions"
+      >
+        <span> # {{ evolution.pokedexId }} {{ evolution.name }}</span>
+        <img
+          class="modalImage"
+          [src]="getEvolutionImageUrl(evolution.pokedexId)"
+          alt=""
+        />
+      </li>
+    </ul>
+  </div>
+
+  <div class="button-container d-flex w-100 justify-content-between p-2">
+    <button
+      data-action="prev"
+      class="btn w-25"
+      [ngStyle]="{ 'background-color': getColorByType(pokemon.type?.[0]) }"
+      (click)="onClose()"
+      [appModale]="pokemon"
+    >
+      Previous
+    </button>
+    <button
+      data-action="next"
+      class="btn w-25"
+      [ngStyle]="{ 'background-color': getColorByType(pokemon.type?.[0]) }"
+      (click)="onClose()"
+      [appModale]="pokemon"
+    >
+      Next
+    </button>
   </div>
 </div>

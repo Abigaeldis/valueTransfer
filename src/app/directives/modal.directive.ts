@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModaleComponent } from '../components/modale/modale.component';
-import { Evolution } from '../entities/pokemon';
+import { HttpClient } from '@angular/common/http';
+import { Pokemon } from '../entities/pokemon';
+import { PokemonService } from '../services/pokemon.service';
 
 @Directive({
   selector: '[appModale]',
@@ -15,23 +17,46 @@ import { Evolution } from '../entities/pokemon';
 })
 export class ModalDirective {
   @Input('appModale') pokemon: any;
-  @Input() evolution: Evolution | null = null; // New input for evolution data
-  @Output() closeClicked = new EventEmitter<void>();
+  @Input() nextPokemon: any;
+  @Input() prevPokemon: any;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private pokemonService: PokemonService
+  ) {}
 
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event.target']) onClick(target: HTMLElement) {
+    const action = target.getAttribute('data-action');
+    if (action === 'next' || action === 'prev') {
+      this.handleNavigation(action);
+    } else {
+      this.openModal(this.pokemon);
+    }
+  }
+
+  handleNavigation(action: string) {
+    let targetPokemonId = this.pokemon.id; // Assuming ID is directly accessible and a number
+    if (action === 'next') {
+      targetPokemonId++;
+    } else if (action === 'prev' && targetPokemonId > 1) {
+      targetPokemonId--;
+    }
+
+    this.pokemonService.getEvolutionById(targetPokemonId).subscribe(
+      (pokemon) => {
+        this.openModal(pokemon);
+      },
+      (error) => {
+        console.error('Failed to fetch Pokémon:', error);
+      }
+    );
+  }
+
+  openModal(pokemon: Pokemon) {
     const modalRef = this.modalService.open(ModaleComponent, {
       centered: true,
     });
-    console.log('Opening modal for:', this.pokemon);
-    console.log('Passing modal for:', this.evolution);
-    modalRef.componentInstance.pokemon = this.pokemon;
-    modalRef.componentInstance.evolution = this.evolution;
-  }
-
-  onClose(): void {
-    console.log('on close modale ts');
-    this.closeClicked.emit();
+    console.log('after button pressed', pokemon);
+    modalRef.componentInstance.pokemon = pokemon;
   }
 }

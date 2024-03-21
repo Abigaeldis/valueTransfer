@@ -9,7 +9,7 @@ import { Evolution } from '../entities/pokemon';
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=100';
   private apiUrlEvo = 'https://pokebuildapi.fr/api/v1/pokemon';
 
   constructor(private http: HttpClient) {}
@@ -46,12 +46,22 @@ export class PokemonService {
       );
   }
 
-  getEvolutionById(id: number): Observable<Evolution> {
-    return this.http.get<Evolution>(`${this.apiUrlEvo}/${id}`);
+  getEvolutionById(id: number): Observable<Pokemon> {
+    return this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${id}`).pipe(
+      map((details) => {
+        return {
+          id: details.id,
+          name: details.name,
+          type: details.types.map((t: any) => t.type.name),
+          artworkUrl: details.sprites.other['official-artwork'].front_default,
+          cries: details.cries,
+        };
+      })
+    );
   }
 
   getPokemonDetailsFromPokeAPI(pokedexId: number): Observable<any> {
-    const url = `https://pokeapi.co/api/v2/pokemon/${pokedexId}`;
+    const url = `${this.apiUrlEvo}/${pokedexId}`;
     return this.http.get<any>(url);
   }
 }

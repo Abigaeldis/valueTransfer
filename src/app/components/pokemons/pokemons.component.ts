@@ -58,8 +58,8 @@ export class PokemonsComponent implements OnInit {
       next: (pokemon) => {
         console.log(pokemon);
 
-        if (pokemon.apiEvolutions && pokemon.apiEvolutions.length > 0) {
-          const evolutionPokedexId = pokemon.apiEvolutions[0].pokedexId;
+        if (pokemon.id) {
+          const evolutionPokedexId = pokemon.id;
 
           this.PokemonService.getPokemonDetailsFromPokeAPI(
             evolutionPokedexId

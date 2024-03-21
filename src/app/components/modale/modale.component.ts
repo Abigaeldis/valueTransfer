@@ -2,19 +2,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Evolution, Pokemon } from '../../entities/pokemon';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PokemonService } from '../../services/pokemon.service';
+import { ModalDirective } from '../../directives/modal.directive';
 
 @Component({
   selector: 'app-modale',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalDirective],
   templateUrl: './modale.component.html',
   styleUrl: './modale.component.scss',
 })
 export class ModaleComponent {
   @Input() pokemon: Pokemon | null = null;
   @Input() evolution: Evolution | null = null;
-
-  evolutionChain: any = null;
+  evolutionDetails: any = null;
 
   colors: { [key: string]: string } = {
     fire: '#FDDFDF',
@@ -33,10 +34,15 @@ export class ModaleComponent {
     normal: '#F5F5F5',
   };
 
-  constructor(private activeModal: NgbActiveModal) {}
+  constructor(
+    private activeModal: NgbActiveModal,
+    private servicePokemon: PokemonService
+  ) {}
 
   ngOnInit(): void {
-    // console.log('Modal opened for:', this.pokemon);
+    if (this.pokemon && this.pokemon.id) {
+      this.fetchEvolutionDetails(this.pokemon.id);
+    }
   }
 
   onClose() {
@@ -54,5 +60,22 @@ export class ModaleComponent {
 
   getColorByType(type: string | undefined): string {
     return type ? this.colors[type] || '#F5F5F5' : '#F5F5F5';
+  }
+
+  fetchEvolutionDetails(pokemonId: number): void {
+    this.servicePokemon.getEvolutionById(pokemonId).subscribe((pokemon) => {
+      if (pokemon && pokemon.id) {
+        this.servicePokemon
+          .getPokemonDetailsFromPokeAPI(pokemon.id)
+          .subscribe((details) => {
+            console.log('ici', details);
+            this.evolutionDetails = details;
+          });
+      }
+    });
+  }
+
+  getEvolutionImageUrl(pokedexId: number): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokedexId}.png`;
   }
 }
