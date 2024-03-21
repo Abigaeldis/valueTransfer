@@ -9,7 +9,7 @@ import { Evolution } from '../entities/pokemon';
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=100';
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   private apiUrlEvo = 'https://pokebuildapi.fr/api/v1/pokemon';
 
   constructor(private http: HttpClient) {}

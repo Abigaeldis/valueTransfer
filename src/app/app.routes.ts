@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { SliderPageComponent } from './pages/sliderpage/sliderpage.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { DirectivesShowdownComponent } from './components/directives-showdown/directives-showdown.component';
@@ -12,7 +11,13 @@ import { StructuralDirectiveComponent } from './components/structural-directive/
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'slider', component: SliderPageComponent },
+  {
+    path: 'slider',
+    loadComponent: () =>
+      import('./pages/sliderpage/sliderpage.component').then(
+        (f) => f.SliderPageComponent
+      ),
+  },
   { path: 'alert', component: CustomAlertComponent },
   { path: 'structuralDirective', component: StructuralDirectiveComponent },
   { path: 'pokemons', component: PokemonsComponent },
