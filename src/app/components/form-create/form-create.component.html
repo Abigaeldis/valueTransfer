@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Create New Pokémon</h2>
+  <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <app-custom-input
+        [option]="Inputname"
+        (valueChange)="onNameEntered($event)"
+      ></app-custom-input>
+    </div>
+    <div class="form-group">
+      <app-select
+        [options]="pokemonTypes"
+        (selectionChange)="onTypeSelected($event)"
+      ></app-select>
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">Image URL:</label>
+      <input
+        type="text"
+        id="imageUrl"
+        formControlName="imageUrl"
+        class="form-control"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!pokemonForm.valid"
+    >
+      Create Pokémon
+    </button>
+  </form>
+</div>

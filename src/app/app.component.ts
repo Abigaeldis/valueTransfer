@@ -5,7 +5,6 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { PokemonService } from './services/pokemon.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DigimonModule } from './modules/digimon/digimon.module';
-
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -4,16 +4,18 @@ import { Pokemon } from '../../entities/pokemon';
 import { CommonModule } from '@angular/common';
 import { ModaleComponent } from '../modale/modale.component';
 import { ModalDirective } from '../../directives/modal.directive';
+import { FormCreateComponent } from '../form-create/form-create.component';
 
 @Component({
   selector: 'app-pokemons',
   templateUrl: './pokemons.component.html',
   styleUrls: ['./pokemons.component.scss'],
   standalone: true,
-  imports: [CommonModule, ModaleComponent, ModalDirective],
+  imports: [CommonModule, ModaleComponent, ModalDirective, FormCreateComponent],
 })
 export class PokemonsComponent implements OnInit {
   pokemons: Pokemon[] = [];
+  pokemonsStored: Pokemon[] = [];
   selectedPokemon: Pokemon | null = null;
 
   colors: { [key: string]: string } = {
@@ -36,12 +38,11 @@ export class PokemonsComponent implements OnInit {
   constructor(private PokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.PokemonService.getPokemons().subscribe({
-      next: (data) => {
-        this.pokemons = data;
-      },
-      error: (err) => console.error(err),
+    this.PokemonService.pokemons$.subscribe((pokemons) => {
+      this.pokemons = pokemons;
     });
+
+    this.PokemonService.loadStoredPokemons();
   }
 
   getColorByType(type: string | undefined): string {
