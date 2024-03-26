@@ -8,6 +8,7 @@ import { PipeDemoComponent } from './components/pipe-demo/pipe-demo.component';
 import { DemoModuleComponent } from './components/demo-module/demo-module.component';
 import { CustomAlertComponent } from './components/custom-alert/custom-alert.component';
 import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'reactiveForms', component: ReactiveFormsComponent },
   { path: 'pipe', component: PipeDemoComponent },
   { path: 'demoModule', component: DemoModuleComponent },
+  { path: 'login', component: LoginComponent },
 ];
